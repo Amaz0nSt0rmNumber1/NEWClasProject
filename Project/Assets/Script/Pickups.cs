@@ -11,12 +11,12 @@ public class Pickups : MonoBehaviour
     void Start()
     {
         //grab ref to player
-        player = GameObject.Find("Moon (NightWing_MindRe@der)").GetComponent<PlayerController>();
+        player = GameObject.Find("Moon").GetComponent<PlayerController>();
     }
     void OnTriggerEnter(Collider other)
     {
         // if the player collides with coin, increase points and destroy
-        if (other.name == "Moon (NightWing_MindRe@der)")
+        if (other.name == "Moon")
         {
             player.coinCount++;
             Destroy(this.gameObject);
