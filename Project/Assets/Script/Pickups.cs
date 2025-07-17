@@ -21,10 +21,6 @@ public class Pickups : MonoBehaviour
             player.coinCount++;
             Destroy(this.gameObject);
         }
-        // Update is called once per frame
-        void Update()
-        {
 
-        }
     }
 }

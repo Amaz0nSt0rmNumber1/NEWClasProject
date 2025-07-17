@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using System;
 using TMPro;
 using JetBrains.Annotations;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,13 +26,13 @@ public class GameManager : MonoBehaviour
     public TMP_Text countdownText;
 
     [Header("End Screen UI")]
-    //public TMP_Text endUI_score;
-    //public TMP_Text endUI_time;
+    public TMP_Text endUI_score;
+    public TMP_Text endUI_time;
 
     [Header("Screens")]
     public GameObject countdownUI;
     public GameObject gameUI;
-    //public GameObject endUI;
+    public GameObject endUI;
 
     // Start is called before the first frame update
     void Start()
@@ -80,9 +81,20 @@ public class GameManager : MonoBehaviour
     {
         // end the timer 
         timeActive = false;
+
         // disable player movement
         Moon.enabled = false;
+
+        //set the UI to display your stats
+        endUI_score.text = "Score: " + Moon.coinCount;
+        endUI_time.text = "Time: " + (time * 10).ToString("F2");
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        SetScreen(endUI);
     }
+
 
     // Update is called once per frame
     void Update()
@@ -96,12 +108,18 @@ public class GameManager : MonoBehaviour
         gameUI_health.text = "Health:" + Moon.health;
         game_UI_time.text = "Time:" + (time * 10).ToString("F2");
     }
+
+    public void OnRestartButton()
+    {
+        SceneManager.LoadScene(0);
+    }
     public void SetScreen(GameObject screen)
     {
         //disable all other screens
         countdownUI.SetActive(false);
         gameUI.SetActive(false);
-        //endUI.SetActive(false);
+        endUI.SetActive(false);
+       
         //activate the requested screen 
         screen.SetActive(true);
     }
